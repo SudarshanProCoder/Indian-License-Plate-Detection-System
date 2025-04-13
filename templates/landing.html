@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian License Plate Detection - AI Project</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --accent-color: #28a745;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link {
+            color: var(--secondary-color) !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+
+        .hero-section {
+            padding: 100px 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .about-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .developer-info {
+            background: rgba(0, 123, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .footer {
+            background: #343a40;
+            color: white;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-car"></i> Indian License Plate Detection
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/detect">Detect</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/history">History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="display-4 mb-4">AI-Powered License Plate Detection</h1>
+            <p class="lead mb-4">Advanced computer vision system for Indian license plate recognition</p>
+            <a href="/detect" class="btn btn-primary btn-lg">
+                <i class="fas fa-camera"></i> Try Detection
+            </a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="container py-5">
+        <h2 class="text-center mb-5">Project Features</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="feature-card text-center">
+                    <i class="fas fa-camera-retro feature-icon"></i>
+                    <h3>Real-time Detection</h3>
+                    <p>Detect license plates in real-time using advanced computer vision algorithms</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card text-center">
+                    <i class="fas fa-map-marker-alt feature-icon"></i>
+                    <h3>State Recognition</h3>
+                    <p>Automatically identify the state of registration from the license plate</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card text-center">
+                    <i class="fas fa-brain feature-icon"></i>
+                    <h3>AI-Powered</h3>
+                    <p>Utilizes deep learning and OCR for accurate text recognition</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 class="text-center mb-5">About the Project</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Project Overview</h3>
+                    <p>This project is developed as part of the AI Neural Networks (AINN) course. It demonstrates the
+                        application of computer vision and deep learning in license plate detection and recognition.</p>
+                    <p>The system uses advanced algorithms to detect license plates in images and videos, extract the
+                        text, and identify the state of registration.</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="developer-info">
+                        <h4>Developer Information</h4>
+                        <p><strong>Name:</strong> Sudarshan Rajendra Date</p>
+                        <p><strong>Project:</strong> Indian License Plate Detection</p>
+                        <p><strong>Course:</strong> AI Neural Networks (AINN)</p>
+                        <p><strong>Date Developed:</strong> 2025</p>
+                        <p><strong>Technologies Used:</strong></p>
+                        <ul>
+                            <li>Python</li>
+                            <li>Flask</li>
+                            <li>OpenCV</li>
+                            <li>YOLO</li>
+                            <li>EasyOCR</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <div class="social-icons mb-3">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+            <p>&copy; 2024 Indian License Plate Detection. All rights reserved.</p>
+            <p>Developed by Sudarshan</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

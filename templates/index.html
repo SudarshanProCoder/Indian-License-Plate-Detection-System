@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>License Plate Detection - AI Project</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --accent-color: #28a745;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link {
+            color: var(--secondary-color) !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .upload-area {
+            border: 2px dashed #007bff;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-area:hover {
+            background-color: rgba(0, 123, 255, 0.05);
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .plate-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .state-info {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .timestamp {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            text-align: center;
+        }
+
+        .detected-image {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .error-message {
+            color: #dc3545;
+            text-align: center;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: rgba(220, 53, 69, 0.1);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .loading i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            animation: spin 1s linear infinite;
+        }
+
+        .tips {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(0, 123, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .tips h5 {
+            color: var(--primary-color);
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-car"></i> Indian License Plate Detection
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/detect">Detect</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/history">History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/#about">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5" style="margin-top: 80px;">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="text-center mb-4">
+                            <i class="fas fa-camera"></i> License Plate Detection
+                        </h1>
+
+                        <div class="upload-area" id="uploadArea">
+                            <i class="fas fa-cloud-upload-alt fa-3x mb-3"></i>
+                            <h4>Upload Image or Take Photo</h4>
+                            <p class="text-muted">Click to upload or drag and drop</p>
+                            <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                            <button class="btn btn-primary mt-3" onclick="document.getElementById('fileInput').click()">
+                                <i class="fas fa-camera"></i> Choose Image
+                            </button>
+                        </div>
+
+                        <div class="loading" id="loading">
+                            <i class="fas fa-spinner"></i>
+                            <p>Processing image...</p>
+                        </div>
+
+                        <div class="result-card" id="resultCard" style="display: none;">
+                            <div class="plate-number" id="plateNumber"></div>
+                            <div class="state-info" id="stateInfo"></div>
+                            <div class="timestamp" id="timestamp"></div>
+                            <img class="detected-image" id="detectedImage" alt="Detected License Plate">
+                        </div>
+
+                        <div class="error-message" id="errorMessage"></div>
+
+                        <div class="tips">
+                            <h5><i class="fas fa-lightbulb"></i> Tips for Better Results:</h5>
+                            <ul>
+                                <li>Ensure good lighting conditions</li>
+                                <li>Keep the license plate clearly visible</li>
+                                <li>Avoid glare or reflections</li>
+                                <li>Use clear, focused images</li>
+                                <li>Upload images in PNG, JPG, or JPEG format</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const loading = document.getElementById('loading');
+        const resultCard = document.getElementById('resultCard');
+        const plateNumber = document.getElementById('plateNumber');
+        const stateInfo = document.getElementById('stateInfo');
+        const timestamp = document.getElementById('timestamp');
+        const detectedImage = document.getElementById('detectedImage');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // Handle drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.backgroundColor = 'rgba(0, 123, 255, 0.1)';
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.backgroundColor = '';
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.backgroundColor = '';
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                processImage(file);
+            } else {
+                showError('Please upload an image file (PNG, JPG, or JPEG)');
+            }
+        });
+
+        // Handle file input
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                if (!file.type.startsWith('image/')) {
+                    showError('Please upload an image file (PNG, JPG, or JPEG)');
+                    return;
+                }
+                processImage(file);
+            }
+        });
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            resultCard.style.display = 'none';
+            loading.style.display = 'none';
+        }
+
+        function processImage(file) {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            // Show loading
+            loading.style.display = 'block';
+            resultCard.style.display = 'none';
+            errorMessage.style.display = 'none';
+
+            fetch('/api/detect', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    loading.style.display = 'none';
+
+                    if (data.error) {
+                        showError(data.error);
+                        return;
+                    }
+
+                    // Display results
+                    plateNumber.textContent = data.plate_number;
+                    stateInfo.textContent = `State: ${data.state}`;
+                    timestamp.textContent = `Detected at: ${data.timestamp}`;
+                    detectedImage.src = data.image_url;
+                    resultCard.style.display = 'block';
+                    errorMessage.style.display = 'none';
+                })
+                .catch(error => {
+                    loading.style.display = 'none';
+                    showError('Error processing image. Please try again.');
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
