@@ -38,28 +38,33 @@ Number_plate/
 ## Setup Instructions
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 cd Number_plate
 ```
 
 2. Create a virtual environment:
+
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
 3. Install dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
 
 4. Run the application:
+
 ```bash
 python app.py
 ```
 
 5. Open your browser and navigate to:
+
 ```
 http://localhost:5000
 ```
@@ -67,10 +72,12 @@ http://localhost:5000
 ## Usage
 
 1. **Home Page**
+
    - Navigate to the home page to learn about the project
    - View features and capabilities
 
 2. **Detection Page**
+
    - Upload an image or use live camera feed
    - View detected license plate and state
    - See processed image with detection overlay
@@ -83,16 +90,19 @@ http://localhost:5000
 ## Output Examples
 
 ### 1. Detection Interface
-![Detection Interface](https://i.imgur.com/example1.jpg)
-*The main detection interface with image upload and live camera options*
+
+![Detection Interface](images/img1.png)
+_The main detection interface with image upload and live camera options_
 
 ### 2. Detection Result
-![Detection Result](https://i.imgur.com/example2.jpg)
-*Example of a detected license plate with state information*
+
+![Detection Result](images/img2.png)
+_Example of a detected license plate with state information_
 
 ### 3. History View
-![History View](https://i.imgur.com/example3.jpg)
-*The history page showing previous detections*
+
+![History View](images/img3.png)
+_The history page showing previous detections_
 
 ## Technical Details
 
