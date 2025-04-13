@@ -40,8 +40,8 @@ Number_plate/
 1. Clone the repository:
 
 ```bash
-git clone <repository-url>
-cd Number_plate
+git clone git@github.com:SudarshanProCoder/Indian-License-Plate-Detection-System.git
+cd Indian-License-Plate-Detection-System
 ```
 
 2. Create a virtual environment:
@@ -89,19 +89,24 @@ http://localhost:5000
 
 ## Output Examples
 
+### Landing Pages
+
+![Landing Page](images/img2.png)
+![Landing Page](images/img3.png)
+
 ### 1. Detection Interface
 
-![Detection Interface](images/img1.png)
+![Detection Interface](images/img4.png)
 _The main detection interface with image upload and live camera options_
 
 ### 2. Detection Result
 
-![Detection Result](images/img2.png)
+![Detection Result](images/img1.png)
 _Example of a detected license plate with state information_
 
 ### 3. History View
 
-![History View](images/img3.png)
+![History View](images/img5.png)
 _The history page showing previous detections_
 
 ## Technical Details
