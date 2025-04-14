@@ -120,7 +120,7 @@ _The history page showing previous detections_
 ## Developer Information
 
 - **Developer**: Sudarshan date
-- **Development Date**: March 2025
+- **Development Date**: April 2025
 - **Contact**: sudarshandate21@gmail.com
 
 ## License
